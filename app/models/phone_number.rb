@@ -5,13 +5,13 @@ class PhoneNumber < ActiveRecord::Base
   end
 
   def twilio_client
-    Twilio::REST::Client.new(ENV['TWILIO_ACCOUNT_SID'], ENV['TWILIO_AUTH_TOKEN'])
+    Twilio::REST::Client.new(Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token)
   end
 
   def send_pin
     twilio_client.messages.create(
       to: phone_number,
-      from: ENV['TWILIO_PHONE_NUMBER'],
+      from: Rails.application.secrets.twilio_phone_number,
       body: "Your PIN is #{pin}",
       media_url: "http://www.toyhalloffame.org/sites/www.toyhalloffame.org/files/toys/square/rubber-duck_0.jpg"
     )

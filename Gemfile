@@ -24,6 +24,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'twilio-ruby', '~> 4.1.0'
 gem 'devise'
+gem 'omniauth'
 gem 'omniauth-facebook'
 
 # Use ActiveModel has_secure_password
