@@ -1,4 +1,8 @@
 Rails.application.configure do
+  class Application < Rails::Application
+    config.web_console.whitelisted_ips = '73.246.84.126'
+  end
+  
   require 'yaml'
   # Settings specified here will take precedence over those in config/application.rb.
 
