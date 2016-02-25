@@ -1,0 +1,43 @@
+@import "bootstrap";
+
+.panel-header {
+  color: #565a5c;
+  font-size: 16px;
+  padding: 12px 20px 12px 20px;
+  background-color: #edefed;
+  border-bottom: 1px solid #dce0e0;
+}
+
+.edit_user .panel {
+  border: 1px solid #dce0e0;
+  border-radius: 0px;
+}
+
+.nav-pills .nav-link.active {
+  color: #565a5c;
+  font-weight: 600;
+  background-color: #fff;
+}
+
+.nav.nav-pills .nav-link.active:hover {
+  color: #565a5c;
+  background-color: #fff;
+}
+
+.nav.nav-pills .nav-link.active:focus {
+  color: #565a5c;
+  background-color: #fff;
+}
+
+.nav-pills.nav-stacked a {
+  color: #82888a;
+}
+
+.nav-pills.nav-stacked a:hover {
+  background-color: #fff;
+  color: #cacccd;
+}
+
+#verify-pin, #status-box {
+  display: none;
+}

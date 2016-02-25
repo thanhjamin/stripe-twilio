@@ -25,4 +25,26 @@ class User < ActiveRecord::Base
       user.image = auth.info.image
     end
   end
+
+  def generate_pin
+    self.pin = rand(0000..9999).to_s.rjust(4, "0")
+    save
+  end
+
+  def twilio_client
+    Twilio::REST::Client.new(Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token)
+  end
+
+  def send_pin
+    twilio_client.messages.create(
+      to: phone_number,
+      from: Rails.application.secrets.twilio_phone_number,
+      body: "Your PIN is #{pin}",
+      media_url: "http://www.toyhalloffame.org/sites/www.toyhalloffame.org/files/toys/square/rubber-duck_0.jpg"
+    )
+  end
+
+  def verify(entered_pin)
+    update(verified: true) if self.pin == entered_pin
+  end
 end
