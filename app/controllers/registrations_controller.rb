@@ -15,6 +15,7 @@ class RegistrationsController < Devise::RegistrationsController
     if @user.phone_number_changed?
       @user.generate_pin
       @user.send_pin
+      # fix js format
       respond_to do |format|
         format.js
       end
