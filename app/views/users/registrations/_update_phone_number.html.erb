@@ -1,20 +1,37 @@
 <div class="panel-header">Account Settings</div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), method: :put, remote: true) do |f| %>
 
-<div class="panel-body">
-  <div class="field">
-    <%= f.label :phone_number %><br />
-    <%= f.telephone_field :phone_number, autocomplete: "off" %>
+<div id="send-pin">
+  <div class="panel-body">
+    <div class="field">
+      <%= f.label :phone_number %><br />
+      <%= f.telephone_field :phone_number, autocomplete: "off" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Save" %>
+    </div>
+    
+    <% end %>
+
+    <div id="verify-pin">
+      <h3>Enter your PIN</h3>
+      <%= form_tag users_verify_path, remote: true do |f| %>
+        <%= hidden_field_tag 'hidden_phone_number', '' %>
+        <div class="form-group">
+          <%= text_field_tag :pin %>
+        </div>
+        <%= submit_tag "Verify PIN", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+     
+    <div id="status-box" class="alert alert-success">
+      <p id="status-message">Status: Haven’t done anything yet</p>
+    </div>
+
+    <%= render template: 'charges/new' %>
+
+    <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Save" %>
-  </div>
-  
-  <% end %>
-
-  <%= render template: 'charges/new' %>
-
-  <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 </div>

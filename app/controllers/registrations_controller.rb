@@ -1,6 +1,8 @@
 class RegistrationsController < Devise::RegistrationsController
   skip_before_action :verify_authenticity_token
 
+  respond_to :html, :js
+
   def update
     # Verify if we need to request current password from user
     successfully_updated = if needs_password?(@user, user_params)
@@ -12,20 +14,17 @@ class RegistrationsController < Devise::RegistrationsController
       @user.update_without_password(user_params)
     end
 
-    if @user.phone_number_changed?
-      @user.generate_pin
-      @user.send_pin
-      # fix js format
-      respond_to do |format|
-        format.js
-      end
-    end
-
     if successfully_updated
       set_flash_message :notice, :updated
       # Sign in the user bypassing validation in case his password changed
       sign_in @user, :bypass => true
       redirect_to after_update_path_for(@user)
+    elsif @user.phone_number_changed?
+      @user.generate_pin
+      @user.send_pin
+      respond_to do |format|
+        format.js
+      end
     else
       render "edit"
     end
