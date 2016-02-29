@@ -26,7 +26,7 @@ class RegistrationsController < Devise::RegistrationsController
         format.js
       end
     else
-      render "edit"
+      return false
     end
   end
 
