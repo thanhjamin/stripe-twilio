@@ -1,37 +1,42 @@
 <div class="panel-header">Account Settings</div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), method: :put, remote: true) do |f| %>
+<%= form_for @user, remote: true do |f| %>
 
-<div id="send-pin">
-  <div class="panel-body">
+<div class="panel-body">
+  <div id="send-pin">
     <div class="field">
       <%= f.label :phone_number %><br />
       <%= f.telephone_field :phone_number, autocomplete: "off" %>
     </div>
 
+    <div class="field" style="display:none">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true %>
+    </div>
+
     <div class="actions">
-      <%= f.submit "Save" %>
+      <%= f.submit "Update" %>
     </div>
     
     <% end %>
-
-    <div id="verify-pin">
-      <h3>Enter your PIN</h3>
-      <%= form_tag users_verify_path, remote: true do |f| %>
-        <%= hidden_field_tag 'hidden_phone_number', '' %>
-        <div class="form-group">
-          <%= text_field_tag :pin %>
-        </div>
-        <%= submit_tag "Verify PIN", class: "btn btn-primary" %>
-      <% end %>
-    </div>
-     
-    <div id="status-box" class="alert alert-success">
-      <p id="status-message">Status: Haven’t done anything yet</p>
-    </div>
-
-    <%= render template: 'charges/new' %>
-
-    <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
   </div>
+
+  <div id="verify-pin">
+    <h3>Enter your PIN</h3>
+    <%= form_tag users_verify_path, remote: true do |f| %>
+      <%= hidden_field_tag 'hidden_phone_number', '' %>
+      <div class="form-group">
+        <%= text_field_tag :pin %>
+      </div>
+      <%= submit_tag "Verify PIN", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+     
+  <div id="status-box" class="alert alert-success">
+    <p id="status-message">Status: Haven’t done anything yet</p>
+  </div>
+
+  <%= render template: 'charges/new' %>
+
+  <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 </div>
