@@ -15,6 +15,10 @@ class ApplicationController < ActionController::Base
 
  private
   def after_sign_in_path_for(resource)
-    edit_user_registration_path(current_user) #basically whichever path you think meets your needs
+    if current_user.phone_number == nil
+      users_update_phone_number_path
+    else
+      edit_user_registration_path(current_user)
+    end
   end
 end

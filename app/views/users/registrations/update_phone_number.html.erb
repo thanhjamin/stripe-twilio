@@ -1,6 +1,6 @@
-<div class="panel-header">Account Settings</div>
+<div class="panel-header">Please add your phone number</div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= form_for(current_user, url: users_update_phone_number_path) do |f| %>
 
 <div class="panel-body">
   <div id="send-pin">

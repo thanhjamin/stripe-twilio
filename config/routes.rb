@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks", registrations: "registrations" }
+  devise_scope :user do 
+    get 'users/update_phone_number' => "registrations#update_phone_number"
+  end
   root 'home#index'
   resources :charges
   resources :phone_numbers, only: [:new, :create]
   post 'phone_numbers/verify' => "phone_numbers#verify"
   post 'phone_numbers/process_sms' => 'phone_numbers#process_sms'
-  post 'users/verify' => 'registrations#verify'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -17,20 +17,16 @@ class RegistrationsController < Devise::RegistrationsController
     if successfully_updated
       set_flash_message :notice, :updated
       # Sign in the user bypassing validation in case his password changed
-      respond_to do |format|
-        format.html { redirect_to new_phone_number_path }
-        format.js
-      end
-      @user.generate_pin
-      @user.send_pin
-      
-    # elsif @user.phone_number_changed?
-
+      sign_in @user, :bypass => true
+      redirect_to after_update_path_for(@user)
     else
       render "edit"
     end
   end
 
+  def update_phone_number
+    current_user = @user
+  end
 
   def verify
     @user.verify(params[:pin])
