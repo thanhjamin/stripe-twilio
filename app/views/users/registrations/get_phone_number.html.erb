@@ -2,8 +2,8 @@
 
 <div class="panel-body">
   <div id="send-pin">
-    <%= form_for(current_user, url: users_update_phone_number_path) do |f| %>
-    
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+
     <div class="field">
       <%= f.label :phone_number %><br />
       <%= f.telephone_field :phone_number, autocomplete: "off" %>
@@ -21,7 +21,7 @@
     <% end %>
   </div>
      
-  <%= form_for(current_user, url: users_update_phone_number_path) do |f| %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <div class="field" style="display:none">
       <%= f.label :email %>
       <%= f.text_field :email %>

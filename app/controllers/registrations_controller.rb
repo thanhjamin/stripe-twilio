@@ -24,8 +24,8 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
-  def update_phone_number
-    current_user = @user
+  def get_phone_number
+    @user = current_user
   end
 
   def verify
@@ -66,10 +66,6 @@ class RegistrationsController < Devise::RegistrationsController
     user.email != params[:user][:email] ||
         # Verify if the password has been informed
         params[:user][:password].present?
-  end
-
-  def set_user
-    @user = User.find(params[:id])
   end
 
   def user_params

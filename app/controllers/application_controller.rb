@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
  private
   def after_sign_in_path_for(resource)
     if current_user.phone_number == nil
-      users_update_phone_number_path
+      users_get_phone_number_path
     else
       edit_user_registration_path(current_user)
     end
