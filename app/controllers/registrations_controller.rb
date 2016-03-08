@@ -18,7 +18,12 @@ class RegistrationsController < Devise::RegistrationsController
       set_flash_message :notice, :updated
       # Sign in the user bypassing validation in case his password changed
       sign_in @user, :bypass => true
-      redirect_to after_update_path_for(@user)
+      @user.generate_pin
+      @user.send_pin
+      respond_to do |format|
+        format.html { redirect_to users_get_phone_number_path }
+        format.js
+      end
     else
       render "edit"
     end
@@ -29,6 +34,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def verify
+    @user = User.find_by(phone_number: params[:hidden_phone_number])
     @user.verify(params[:pin])
     respond_to do |format|
       format.js
